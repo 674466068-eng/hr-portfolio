@@ -13,6 +13,9 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -27,12 +30,24 @@
                     },
                     colors: {
                         brand: {
-                            navy: '#1e3a8a', // สี Navy Blue สุภาพ น่าเชื่อถือ
+                            red: '#be123c',      // สีแดงเข้ม (Rose 700)
+                            pink: '#db2777',     // สีชมพู (Pink 600)
+                            light: '#fce7f3',    // สีชมพูอ่อน (Pink 100)
                             slate: '#475569',
-                            peach: '#fb923c', // สีส้มพีช Warm & Friendly
-                            pastel: '#bfdbfe', // สีฟ้าพาสเทล
                             darkBg: '#0f172a',
                             darkCard: '#1e293b'
+                        }
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 3s infinite',
+                        'blob': 'blob 7s infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
                         }
                     }
                 }
@@ -44,94 +59,140 @@
         /* Custom scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
-        .dark ::-webkit-scrollbar-thumb { background: #475569; }
+        ::-webkit-scrollbar-thumb { background: #fda4af; border-radius: 4px; }
+        .dark ::-webkit-scrollbar-thumb { background: #be123c; }
+        
+        /* Utility class for animation delays */
+        .animation-delay-2000 { animation-delay: 2s; }
+        .animation-delay-4000 { animation-delay: 4s; }
+        
+        /* Active Nav Link Style */
+        .nav-link.active {
+            color: #db2777; /* brand-pink */
+            font-weight: 600;
+        }
+        .dark .nav-link.active {
+            color: #fce7f3; /* brand-light */
+        }
+        
+        /* Typed JS Cursor styling */
+        .typed-cursor { font-size: 1.5rem; color: #db2777; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 dark:bg-brand-darkBg dark:text-slate-200 transition-colors duration-300">
+<body class="bg-slate-50 text-slate-800 dark:bg-brand-darkBg dark:text-slate-200 transition-colors duration-500 overflow-x-hidden relative">
+
+    <!-- Background Animated Blobs (Interactive feeling) -->
+    <div class="fixed inset-0 w-full h-full pointer-events-none z-[-1] overflow-hidden">
+        <div class="absolute top-0 left-1/4 w-72 h-72 bg-brand-pink/20 dark:bg-brand-pink/10 rounded-full mix-blend-multiply dark:mix-blend-lighten filter blur-3xl opacity-70 animate-blob"></div>
+        <div class="absolute top-0 right-1/4 w-72 h-72 bg-brand-red/20 dark:bg-brand-red/10 rounded-full mix-blend-multiply dark:mix-blend-lighten filter blur-3xl opacity-70 animate-blob animation-delay-2000"></div>
+        <div class="absolute -bottom-8 left-1/2 w-72 h-72 bg-purple-300/30 dark:bg-purple-900/20 rounded-full mix-blend-multiply dark:mix-blend-lighten filter blur-3xl opacity-70 animate-blob animation-delay-4000"></div>
+    </div>
+
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-bar" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-brand-red to-brand-pink z-[60] w-0 transition-all duration-100 rounded-r-full"></div>
 
     <!-- 1. Header/Navbar -->
-    <header class="fixed w-full top-0 z-50 bg-white/80 dark:bg-brand-darkBg/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors">
+    <header class="fixed w-full top-0 z-50 bg-white/70 dark:bg-brand-darkBg/70 backdrop-blur-lg border-b border-white/20 dark:border-slate-800 transition-all duration-300" id="navbar">
         <div class="max-w-6xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
-            <a href="#" class="text-xl font-bold text-brand-navy dark:text-brand-pastel">
-                Anantaya<span class="text-brand-peach">.HR</span>
+            <a href="#" class="text-xl font-bold text-brand-red dark:text-brand-light transform hover:scale-110 transition-transform duration-300 drop-shadow-sm">
+                Anantaya<span class="text-brand-pink">.HR</span>
             </a>
             
             <!-- Desktop Menu -->
             <nav class="hidden md:flex space-x-8 items-center font-medium text-sm">
-                <a href="#about" class="hover:text-brand-peach transition-colors">About</a>
-                <a href="#skills" class="hover:text-brand-peach transition-colors">Skills</a>
-                <a href="#projects" class="hover:text-brand-peach transition-colors">Projects</a>
-                <a href="#experience" class="hover:text-brand-peach transition-colors">Experience</a>
-                <a href="#contact" class="hover:text-brand-peach transition-colors">Contact</a>
+                <a href="#about" class="nav-link hover:text-brand-pink transition-colors relative group">
+                    About
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-pink transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#skills" class="nav-link hover:text-brand-pink transition-colors relative group">
+                    Skills
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-pink transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#projects" class="nav-link hover:text-brand-pink transition-colors relative group">
+                    Projects
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-pink transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#experience" class="nav-link hover:text-brand-pink transition-colors relative group">
+                    Experience
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-pink transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#contact" class="nav-link hover:text-brand-pink transition-colors relative group">
+                    Contact
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-pink transition-all duration-300 group-hover:w-full"></span>
+                </a>
                 
                 <!-- Dark Mode Toggle Desktop -->
-                <button onclick="toggleDarkMode()" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition text-brand-navy dark:text-brand-pastel" aria-label="Toggle Dark Mode">
+                <button onclick="toggleDarkMode()" class="p-2 rounded-full hover:bg-slate-200/50 dark:hover:bg-slate-800 transition-all text-brand-red dark:text-brand-light hover:rotate-45 transform" aria-label="Toggle Dark Mode">
                     <i id="theme-icon-desktop" class="fas fa-moon text-lg"></i>
                 </button>
             </nav>
 
             <!-- Mobile Menu Button -->
             <div class="md:hidden flex items-center gap-4">
-                <button onclick="toggleDarkMode()" class="p-2 text-brand-navy dark:text-brand-pastel">
+                <button onclick="toggleDarkMode()" class="p-2 text-brand-red dark:text-brand-light transform hover:rotate-45 transition-all">
                     <i id="theme-icon-mobile" class="fas fa-moon text-lg"></i>
                 </button>
-                <button onclick="toggleMobileMenu()" class="text-2xl focus:outline-none">
-                    <i class="fas fa-bars"></i>
+                <button onclick="toggleMobileMenu()" class="text-2xl focus:outline-none hover:text-brand-pink transition-colors">
+                    <i class="fas fa-bars" id="menu-icon"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-brand-darkCard border-t border-slate-100 dark:border-slate-800">
-            <nav class="flex flex-col px-6 py-4 space-y-4 font-medium text-sm">
-                <a href="#about" onclick="toggleMobileMenu()" class="hover:text-brand-peach">About</a>
-                <a href="#skills" onclick="toggleMobileMenu()" class="hover:text-brand-peach">Skills</a>
-                <a href="#projects" onclick="toggleMobileMenu()" class="hover:text-brand-peach">Projects</a>
-                <a href="#experience" onclick="toggleMobileMenu()" class="hover:text-brand-peach">Experience</a>
-                <a href="#contact" onclick="toggleMobileMenu()" class="hover:text-brand-peach">Contact</a>
+        <!-- Mobile Menu (Animated) -->
+        <div id="mobile-menu" class="absolute top-16 left-0 w-full bg-white/95 dark:bg-brand-darkCard/95 backdrop-blur-xl border-b border-slate-100 dark:border-slate-800 transition-all duration-300 overflow-hidden max-h-0 shadow-xl">
+            <nav class="flex flex-col px-6 py-2 font-medium text-base">
+                <a href="#about" onclick="toggleMobileMenu()" class="mobile-nav-link py-3 border-b border-slate-100 dark:border-slate-800 hover:text-brand-pink hover:pl-2 transition-all">About</a>
+                <a href="#skills" onclick="toggleMobileMenu()" class="mobile-nav-link py-3 border-b border-slate-100 dark:border-slate-800 hover:text-brand-pink hover:pl-2 transition-all">Skills</a>
+                <a href="#projects" onclick="toggleMobileMenu()" class="mobile-nav-link py-3 border-b border-slate-100 dark:border-slate-800 hover:text-brand-pink hover:pl-2 transition-all">Projects</a>
+                <a href="#experience" onclick="toggleMobileMenu()" class="mobile-nav-link py-3 border-b border-slate-100 dark:border-slate-800 hover:text-brand-pink hover:pl-2 transition-all">Experience</a>
+                <a href="#contact" onclick="toggleMobileMenu()" class="mobile-nav-link py-3 hover:text-brand-pink hover:pl-2 transition-all">Contact</a>
             </nav>
         </div>
     </header>
 
     <!-- 2. Hero Section -->
-    <section id="hero" class="pt-32 pb-20 px-6 md:px-12 max-w-6xl mx-auto flex flex-col md:flex-row items-center min-h-[90vh]">
-        <div class="w-full md:w-3/5 space-y-6 text-center md:text-left">
-            <span class="inline-block py-1 px-3 rounded-full bg-brand-pastel/30 text-brand-navy dark:bg-brand-navy/30 dark:text-brand-pastel text-sm font-semibold tracking-wide">
-                HR Portfolio
+    <section id="hero" class="pt-32 pb-20 px-6 md:px-12 max-w-6xl mx-auto flex flex-col-reverse md:flex-row items-center min-h-[90vh]">
+        <div class="w-full md:w-3/5 space-y-6 text-center md:text-left mt-10 md:mt-0" data-aos="fade-right" data-aos-duration="1000">
+            <span class="inline-block py-1 px-4 rounded-full bg-brand-light/80 text-brand-red dark:bg-brand-red/30 dark:text-brand-light text-sm font-semibold tracking-wide shadow-sm border border-brand-pink/20 hover:scale-105 transition-transform cursor-pointer">
+                ✨ HR Portfolio
             </span>
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
                 สวัสดีค่ะ, ฉัน <br>
-                <span class="text-brand-navy dark:text-brand-pastel">อนันตญา วรรณสิงห์</span>
+                <span class="text-brand-red dark:text-brand-light bg-clip-text">อนันตญา วรรณสิงห์</span>
             </h1>
-            <h2 class="text-xl md:text-2xl text-brand-peach font-medium">
-                HR Generalist / Talent Acquisition / HRD
+            <h2 class="text-xl md:text-2xl text-brand-pink font-medium h-8 md:h-10">
+                <span id="typed-text"></span>
             </h2>
-            <p class="text-slate-600 dark:text-slate-400 text-lg md:pr-12">
+            <p class="text-slate-600 dark:text-slate-400 text-lg md:pr-12 leading-relaxed">
                 "Bridging organizational goals with employee happiness & growth." <br>
-                <span class="text-sm mt-3 block p-3 bg-white/50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700 inline-block">
-                    🎓 นักศึกษาชั้นปีที่ 3 สาขาการจัดการทรัพยากรมนุษย์ มหาวิทยาลัยราชภัฏนครปฐม
+                <span class="text-sm mt-4 block p-4 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-brand-pink/40 transition-all duration-300 transform hover:-translate-y-1">
+                    <i class="fas fa-graduation-cap text-brand-pink mr-2 text-lg"></i> 
+                    นักศึกษาชั้นปีที่ 3 สาขาการจัดการทรัพยากรมนุษย์ มหาวิทยาลัยราชภัฏนครปฐม
                 </span>
             </p>
             
-            <div class="flex flex-wrap justify-center md:justify-start gap-4 pt-4">
-                <a href="https://drive.google.com/..." target="_blank" class="px-6 py-3 bg-brand-navy text-white rounded-lg shadow-lg hover:bg-blue-800 transition-all font-medium flex items-center gap-2">
-                    <i class="fas fa-file-pdf"></i> ดาวน์โหลด Resume
+            <div class="flex flex-wrap justify-center md:justify-start gap-4 pt-6">
+                <a href="https://drive.google.com/..." target="_blank" class="relative px-8 py-3 bg-brand-red text-white rounded-full shadow-lg shadow-brand-red/30 hover:bg-rose-900 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 font-medium flex items-center gap-2 overflow-hidden group">
+                    <span class="absolute inset-0 w-full h-full bg-white/20 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 rounded-full"></span>
+                    <i class="fas fa-file-pdf group-hover:animate-bounce relative z-10"></i> 
+                    <span class="relative z-10">ดาวน์โหลด Resume</span>
                 </a>
-                <a href="#contact" class="px-6 py-3 border-2 border-brand-navy text-brand-navy dark:border-brand-pastel dark:text-brand-pastel rounded-lg hover:bg-brand-navy hover:text-white dark:hover:bg-brand-pastel dark:hover:text-brand-navy transition-all font-medium flex items-center gap-2">
-                    <i class="fas fa-paper-plane"></i> ติดต่อฉัน
+                <a href="#contact" class="px-8 py-3 border-2 border-brand-red text-brand-red dark:border-brand-light dark:text-brand-light rounded-full hover:bg-brand-red hover:text-white dark:hover:bg-brand-light dark:hover:text-brand-red hover:-translate-y-1 shadow-sm hover:shadow-lg transition-all duration-300 font-medium flex items-center gap-2 group">
+                    <i class="fas fa-paper-plane group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i> ติดต่อฉัน
                 </a>
             </div>
 
-            <div class="flex items-center justify-center md:justify-start gap-6 pt-6 text-2xl text-slate-400">
-                <a href="https://linkedin.com/in/yourprofile" target="_blank" class="hover:text-brand-navy dark:hover:text-brand-pastel transition" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="mailto:674466068@webmail.npru.ac.th" class="hover:text-brand-peach transition" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            <div class="flex items-center justify-center md:justify-start gap-6 pt-8 text-2xl text-slate-400">
+                <a href="https://linkedin.com/in/yourprofile" target="_blank" class="hover:text-blue-600 dark:hover:text-blue-400 hover:scale-125 transform transition duration-300" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:674466068@webmail.npru.ac.th" class="hover:text-brand-pink hover:scale-125 transform transition duration-300" aria-label="Email"><i class="fas fa-envelope"></i></a>
             </div>
         </div>
-        <div class="w-full md:w-2/5 mt-12 md:mt-0 flex justify-center">
-            <!-- Profile Image Placeholder -->
-            <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center border-4 border-white dark:border-brand-darkBg shadow-xl overflow-hidden">
-                <i class="fas fa-user-tie text-6xl text-slate-400 dark:text-slate-500"></i>
+        <div class="w-full md:w-2/5 flex justify-center relative" data-aos="fade-left" data-aos-duration="1000">
+            <!-- Decorative circle behind profile -->
+            <div class="absolute inset-0 bg-brand-pink/20 dark:bg-brand-pink/10 rounded-full blur-2xl transform scale-75 animate-pulse"></div>
+            <!-- Profile Image Placeholder with Tilt Effect -->
+            <div data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.2" class="relative w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-tr from-slate-200 to-white dark:from-slate-700 dark:to-slate-600 flex items-center justify-center border-4 border-white dark:border-brand-darkBg shadow-2xl overflow-hidden hover:shadow-brand-pink/40 transition-shadow duration-500 cursor-pointer">
+                <i class="fas fa-user-tie text-6xl text-slate-400 dark:text-slate-400 group-hover:scale-110 transition-transform"></i>
                 <!-- แนะนำให้ใส่รูปภาพของคุณที่นี่โดยแทนที่ i tag ด้านบนด้วย: -->
                 <!-- <img src="your-image.jpg" alt="อนันตญา วรรณสิงห์" class="w-full h-full object-cover"> -->
             </div>
@@ -139,106 +200,133 @@
     </section>
 
     <!-- 3. About Me -->
-    <section id="about" class="py-20 bg-white dark:bg-brand-darkCard transition-colors">
-        <div class="max-w-4xl mx-auto px-6 md:px-12 text-center space-y-6">
-            <h2 class="text-3xl font-bold inline-block border-b-4 border-brand-peach pb-2 text-brand-navy dark:text-white">About Me</h2>
-            <p class="text-lg text-slate-600 dark:text-slate-300 leading-relaxed pt-4">
-                นักศึกษาสาย HR ที่มุ่งมั่นในการเรียนรู้กระบวนการสรรหาและพัฒนาบุคลากร มีความสนใจในการนำข้อมูล (People Data) มาใช้ปรับปรุงประสบการณ์ของพนักงานในองค์กร เพื่อสร้างสภาพแวดล้อมการทำงานที่ดีและส่งเสริมให้องค์กรบรรลุเป้าหมายอย่างยั่งยืน
-            </p>
+    <section id="about" class="py-24 relative">
+        <div class="max-w-4xl mx-auto px-6 md:px-12 text-center space-y-6" data-aos="fade-up">
+            <h2 class="text-3xl font-bold inline-block relative text-brand-red dark:text-white">
+                About Me
+                <span class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-1/2 h-1 bg-brand-pink rounded-full"></span>
+            </h2>
+            <div class="pt-8">
+                <p class="text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto bg-white/40 dark:bg-slate-800/40 p-8 rounded-3xl backdrop-blur-sm border border-white/50 dark:border-slate-700 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+                    <i class="fas fa-quote-left text-brand-pink/30 text-4xl absolute top-4 left-4"></i>
+                    นักศึกษาสาย HR ที่มุ่งมั่นในการเรียนรู้กระบวนการสรรหาและพัฒนาบุคลากร มีความสนใจในการนำข้อมูล (People Data) มาใช้ปรับปรุงประสบการณ์ของพนักงานในองค์กร เพื่อสร้างสภาพแวดล้อมการทำงานที่ดีและส่งเสริมให้องค์กรบรรลุเป้าหมายอย่างยั่งยืน
+                    <i class="fas fa-quote-right text-brand-pink/30 text-4xl absolute bottom-4 right-4"></i>
+                </p>
+            </div>
         </div>
     </section>
 
     <!-- 4. HR Skills & Competencies -->
-    <section id="skills" class="py-20 px-6 md:px-12 max-w-6xl mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-12 inline-block border-b-4 border-brand-peach pb-2 text-brand-navy dark:text-white">HR Skills & Competencies</h2>
+    <section id="skills" class="py-20 px-6 md:px-12 max-w-6xl mx-auto relative z-10">
+        <div class="text-center mb-16" data-aos="zoom-in">
+            <h2 class="text-3xl font-bold inline-block relative text-brand-red dark:text-white">
+                HR Skills & Competencies
+                <span class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-1/2 h-1 bg-brand-pink rounded-full"></span>
+            </h2>
+        </div>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Hard Skills -->
-            <div class="bg-white dark:bg-brand-darkCard p-8 rounded-2xl shadow-lg border border-slate-100 dark:border-slate-800 hover:-translate-y-1 transition-transform">
-                <div class="w-14 h-14 bg-brand-pastel/30 text-brand-navy dark:bg-brand-navy/50 dark:text-brand-pastel rounded-xl flex items-center justify-center text-2xl mb-6">
+            <div data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1" class="bg-white/80 dark:bg-brand-darkCard/80 backdrop-blur-md p-8 rounded-3xl shadow-lg border border-white/50 dark:border-slate-700 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand-red/20 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="100">
+                <div class="w-16 h-16 bg-brand-light text-brand-red dark:bg-brand-red/30 dark:text-brand-light rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 shadow-sm">
                     <i class="fas fa-users-cog"></i>
                 </div>
-                <h3 class="text-xl font-bold mb-4 dark:text-white">HR Hard Skills</h3>
+                <h3 class="text-xl font-bold mb-6 dark:text-white">HR Hard Skills</h3>
                 <div class="flex flex-wrap gap-2">
-                    <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 rounded-full text-sm">Recruitment & Selection</span>
-                    <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 rounded-full text-sm">Onboarding Design</span>
-                    <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 rounded-full text-sm">Employee Engagement</span>
-                    <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 rounded-full text-sm">Basic Labor Law</span>
-                    <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 rounded-full text-sm">HRD</span>
+                    <span class="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-full text-sm hover:bg-brand-red hover:text-white hover:border-brand-red transition-all duration-300 cursor-default shadow-sm">Recruitment & Selection</span>
+                    <span class="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-full text-sm hover:bg-brand-red hover:text-white hover:border-brand-red transition-all duration-300 cursor-default shadow-sm">Onboarding Design</span>
+                    <span class="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-full text-sm hover:bg-brand-red hover:text-white hover:border-brand-red transition-all duration-300 cursor-default shadow-sm">Employee Engagement</span>
+                    <span class="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-full text-sm hover:bg-brand-red hover:text-white hover:border-brand-red transition-all duration-300 cursor-default shadow-sm">Basic Labor Law</span>
+                    <span class="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-full text-sm hover:bg-brand-red hover:text-white hover:border-brand-red transition-all duration-300 cursor-default shadow-sm">HRD</span>
                 </div>
             </div>
 
             <!-- Data & Tools -->
-            <div class="bg-white dark:bg-brand-darkCard p-8 rounded-2xl shadow-lg border border-slate-100 dark:border-slate-800 hover:-translate-y-1 transition-transform">
-                <div class="w-14 h-14 bg-brand-peach/20 text-brand-peach dark:bg-orange-900/30 rounded-xl flex items-center justify-center text-2xl mb-6">
+            <div data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1" class="bg-white/80 dark:bg-brand-darkCard/80 backdrop-blur-md p-8 rounded-3xl shadow-lg border border-white/50 dark:border-slate-700 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand-pink/20 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-16 h-16 bg-brand-pink/10 text-brand-pink dark:bg-pink-900/30 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 shadow-sm">
                     <i class="fas fa-chart-pie"></i>
                 </div>
-                <h3 class="text-xl font-bold mb-4 dark:text-white">Data & Tools</h3>
+                <h3 class="text-xl font-bold mb-6 dark:text-white">Data & Tools</h3>
                 <div class="flex flex-wrap gap-2">
-                    <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 rounded-full text-sm">MS Excel (Pivot, VLOOKUP)</span>
-                    <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 rounded-full text-sm">Power BI (Basic)</span>
-                    <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 rounded-full text-sm">Google Forms</span>
-                    <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 rounded-full text-sm">Canva</span>
-                    <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 rounded-full text-sm">Notion</span>
+                    <span class="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-full text-sm hover:bg-brand-pink hover:text-white hover:border-brand-pink transition-all duration-300 cursor-default shadow-sm">MS Excel (Pivot, VLOOKUP)</span>
+                    <span class="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-full text-sm hover:bg-brand-pink hover:text-white hover:border-brand-pink transition-all duration-300 cursor-default shadow-sm">Power BI (Basic)</span>
+                    <span class="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-full text-sm hover:bg-brand-pink hover:text-white hover:border-brand-pink transition-all duration-300 cursor-default shadow-sm">Google Forms</span>
+                    <span class="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-full text-sm hover:bg-brand-pink hover:text-white hover:border-brand-pink transition-all duration-300 cursor-default shadow-sm">Canva</span>
+                    <span class="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-full text-sm hover:bg-brand-pink hover:text-white hover:border-brand-pink transition-all duration-300 cursor-default shadow-sm">Notion</span>
                 </div>
             </div>
 
             <!-- Soft Skills -->
-            <div class="bg-white dark:bg-brand-darkCard p-8 rounded-2xl shadow-lg border border-slate-100 dark:border-slate-800 hover:-translate-y-1 transition-transform">
-                <div class="w-14 h-14 bg-brand-navy/10 text-brand-navy dark:bg-slate-700 dark:text-white rounded-xl flex items-center justify-center text-2xl mb-6">
+            <div data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1" class="bg-white/80 dark:bg-brand-darkCard/80 backdrop-blur-md p-8 rounded-3xl shadow-lg border border-white/50 dark:border-slate-700 hover:-translate-y-2 hover:shadow-2xl hover:shadow-slate-400/20 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="300">
+                <div class="w-16 h-16 bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-200 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 shadow-sm">
                     <i class="fas fa-hands-helping"></i>
                 </div>
-                <h3 class="text-xl font-bold mb-4 dark:text-white">Soft Skills</h3>
+                <h3 class="text-xl font-bold mb-6 dark:text-white">Soft Skills</h3>
                 <div class="flex flex-wrap gap-2">
-                    <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 rounded-full text-sm">Active Listening</span>
-                    <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 rounded-full text-sm">Empathy</span>
-                    <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 rounded-full text-sm">Communication</span>
-                    <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 rounded-full text-sm">Team Facilitation</span>
-                    <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 rounded-full text-sm">Conflict Resolution</span>
+                    <span class="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-full text-sm hover:bg-slate-600 hover:text-white hover:border-slate-600 transition-all duration-300 cursor-default shadow-sm">Active Listening</span>
+                    <span class="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-full text-sm hover:bg-slate-600 hover:text-white hover:border-slate-600 transition-all duration-300 cursor-default shadow-sm">Empathy</span>
+                    <span class="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-full text-sm hover:bg-slate-600 hover:text-white hover:border-slate-600 transition-all duration-300 cursor-default shadow-sm">Communication</span>
+                    <span class="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-full text-sm hover:bg-slate-600 hover:text-white hover:border-slate-600 transition-all duration-300 cursor-default shadow-sm">Team Facilitation</span>
+                    <span class="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-full text-sm hover:bg-slate-600 hover:text-white hover:border-slate-600 transition-all duration-300 cursor-default shadow-sm">Conflict Resolution</span>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- 5. Projects & Case Studies -->
-    <section id="projects" class="py-20 bg-white dark:bg-brand-darkCard transition-colors">
+    <section id="projects" class="py-24 bg-slate-100/50 dark:bg-slate-900/50 transition-colors">
         <div class="max-w-6xl mx-auto px-6 md:px-12">
-            <h2 class="text-3xl font-bold text-center mb-12 inline-block border-b-4 border-brand-peach pb-2 text-brand-navy dark:text-white">Projects & Case Studies</h2>
+            <div class="text-center mb-16" data-aos="zoom-in">
+                <h2 class="text-3xl font-bold inline-block relative text-brand-red dark:text-white">
+                    Projects & Case Studies
+                    <span class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-1/2 h-1 bg-brand-pink rounded-full"></span>
+                </h2>
+            </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <!-- Project 1 -->
-                <div class="border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition flex flex-col h-full bg-slate-50 dark:bg-brand-darkBg">
-                    <div class="p-8 flex-1">
-                        <div class="text-brand-peach mb-2"><i class="fas fa-folder-open text-2xl"></i></div>
-                        <h3 class="text-xl font-bold mb-3 dark:text-white">Onboarding & Training Program Design</h3>
-                        <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm">
-                            ออกแบบหลักสูตรการปฐมนิเทศพนักงานใหม่ 3 วัน พร้อมระบบติดตามผล 90 วัน ในรายวิชา HRD
+                <div data-tilt data-tilt-max="3" data-tilt-speed="400" class="border border-white dark:border-slate-700 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 flex flex-col h-full bg-white/80 dark:bg-brand-darkCard/80 backdrop-blur-md group" data-aos="fade-right">
+                    <div class="p-10 flex-1 relative overflow-hidden">
+                        <!-- Decorative gradient blob -->
+                        <div class="absolute -top-10 -right-10 w-32 h-32 bg-brand-light dark:bg-brand-red/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+                        
+                        <div class="w-14 h-14 rounded-2xl bg-brand-pink/10 flex items-center justify-center text-brand-pink mb-6 transform group-hover:scale-110 group-hover:bg-brand-pink group-hover:text-white transition-all duration-300">
+                            <i class="fas fa-folder-open text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 dark:text-white group-hover:text-brand-red dark:group-hover:text-brand-pink transition-colors relative z-10">Onboarding & Training Program Design</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-8 text-base leading-relaxed relative z-10">
+                            ออกแบบหลักสูตรการปฐมนิเทศพนักงานใหม่ 3 วัน พร้อมระบบติดตามผล 90 วัน ในรายวิชา HRD เน้นการสร้างประสบการณ์ที่ดีให้พนักงานใหม่
                         </p>
-                        <div class="mt-auto">
-                            <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-wider">เครื่องมือที่ใช้:</p>
+                        <div class="mt-auto relative z-10">
+                            <p class="text-xs font-bold text-brand-red dark:text-brand-light mb-3 uppercase tracking-widest">เครื่องมือที่ใช้</p>
                             <div class="flex flex-wrap gap-2">
-                                <span class="text-xs font-medium px-2 py-1 bg-white dark:bg-brand-darkCard border border-slate-200 dark:border-slate-600 rounded text-brand-navy dark:text-brand-pastel">Instructional Design</span>
-                                <span class="text-xs font-medium px-2 py-1 bg-white dark:bg-brand-darkCard border border-slate-200 dark:border-slate-600 rounded text-brand-navy dark:text-brand-pastel">Canva</span>
-                                <span class="text-xs font-medium px-2 py-1 bg-white dark:bg-brand-darkCard border border-slate-200 dark:border-slate-600 rounded text-brand-navy dark:text-brand-pastel">MS Word</span>
+                                <span class="text-xs font-semibold px-3 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-md text-brand-red dark:text-brand-light">Instructional Design</span>
+                                <span class="text-xs font-semibold px-3 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-md text-brand-red dark:text-brand-light">Canva</span>
+                                <span class="text-xs font-semibold px-3 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-md text-brand-red dark:text-brand-light">MS Word</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Project 2 -->
-                <div class="border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition flex flex-col h-full bg-slate-50 dark:bg-brand-darkBg">
-                    <div class="p-8 flex-1">
-                        <div class="text-brand-peach mb-2"><i class="fas fa-chart-line text-2xl"></i></div>
-                        <h3 class="text-xl font-bold mb-3 dark:text-white">Employee Engagement & Satisfaction Survey</h3>
-                        <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm">
-                            ออกแบบแบบสำรวจและวิเคราะห์ข้อมูลความพึงพอใจของนักศึกษา 150 คน เพื่อเสนอแนวทางการจัดกิจกรรมชมรม
+                <div data-tilt data-tilt-max="3" data-tilt-speed="400" class="border border-white dark:border-slate-700 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 flex flex-col h-full bg-white/80 dark:bg-brand-darkCard/80 backdrop-blur-md group" data-aos="fade-left">
+                    <div class="p-10 flex-1 relative overflow-hidden">
+                        <!-- Decorative gradient blob -->
+                        <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-brand-light dark:bg-brand-pink/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+                        
+                        <div class="w-14 h-14 rounded-2xl bg-brand-red/10 flex items-center justify-center text-brand-red mb-6 transform group-hover:scale-110 group-hover:bg-brand-red group-hover:text-white transition-all duration-300">
+                            <i class="fas fa-chart-line text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 dark:text-white group-hover:text-brand-red dark:group-hover:text-brand-pink transition-colors relative z-10">Employee Engagement & Satisfaction Survey</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-8 text-base leading-relaxed relative z-10">
+                            ออกแบบแบบสำรวจและวิเคราะห์ข้อมูลความพึงพอใจของนักศึกษา 150 คน เพื่อเสนอแนวทางการจัดกิจกรรมชมรมอย่างมีประสิทธิภาพ
                         </p>
-                        <div class="mt-auto">
-                            <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-wider">เครื่องมือที่ใช้:</p>
+                        <div class="mt-auto relative z-10">
+                            <p class="text-xs font-bold text-brand-red dark:text-brand-light mb-3 uppercase tracking-widest">เครื่องมือที่ใช้</p>
                             <div class="flex flex-wrap gap-2">
-                                <span class="text-xs font-medium px-2 py-1 bg-white dark:bg-brand-darkCard border border-slate-200 dark:border-slate-600 rounded text-brand-navy dark:text-brand-pastel">Google Forms</span>
-                                <span class="text-xs font-medium px-2 py-1 bg-white dark:bg-brand-darkCard border border-slate-200 dark:border-slate-600 rounded text-brand-navy dark:text-brand-pastel">MS Excel</span>
-                                <span class="text-xs font-medium px-2 py-1 bg-white dark:bg-brand-darkCard border border-slate-200 dark:border-slate-600 rounded text-brand-navy dark:text-brand-pastel">Data Visualization</span>
+                                <span class="text-xs font-semibold px-3 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-md text-brand-red dark:text-brand-light">Google Forms</span>
+                                <span class="text-xs font-semibold px-3 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-md text-brand-red dark:text-brand-light">MS Excel</span>
+                                <span class="text-xs font-semibold px-3 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-md text-brand-red dark:text-brand-light">Data Visualization</span>
                             </div>
                         </div>
                     </div>
@@ -248,99 +336,120 @@
     </section>
 
     <!-- 6. Activities & Experience (Timeline) -->
-    <section id="experience" class="py-20 px-6 md:px-12 max-w-4xl mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-12 inline-block border-b-4 border-brand-peach pb-2 text-brand-navy dark:text-white">Activities & Experience</h2>
+    <section id="experience" class="py-24 px-6 md:px-12 max-w-4xl mx-auto">
+        <div class="text-center mb-16" data-aos="zoom-in">
+            <h2 class="text-3xl font-bold inline-block relative text-brand-red dark:text-white">
+                Activities & Experience
+                <span class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-1/2 h-1 bg-brand-pink rounded-full"></span>
+            </h2>
+        </div>
         
-        <div class="relative border-l-2 border-brand-pastel dark:border-slate-700 ml-3 md:ml-6 space-y-12">
+        <div class="relative border-l-2 border-brand-light dark:border-slate-700 ml-3 md:ml-6 space-y-12">
             <!-- Experience 1 -->
-            <div class="relative pl-8 md:pl-10">
-                <div class="absolute -left-3 md:-left-3.5 top-1 w-6 h-6 rounded-full bg-brand-peach border-4 border-slate-50 dark:border-brand-darkBg"></div>
-                <h3 class="text-xl font-bold text-brand-navy dark:text-white">หัวหน้าฝ่ายสวัสดิการและดูแลทีมงาน</h3>
-                <p class="text-brand-peach font-medium text-sm mb-3">ค่ายอาสามหาวิทยาลัย (2567)</p>
-                <p class="text-slate-600 dark:text-slate-400 text-sm md:text-base">
-                    ดูแลเรื่องการจัดสรรอาหาร สวัสดิการ และประสานงานทีมงานค่ายกว่า 50 คน
-                </p>
+            <div class="relative pl-8 md:pl-12 group" data-aos="fade-up" data-aos-delay="100">
+                <div class="absolute -left-3.5 md:-left-[15px] top-1.5 w-7 h-7 rounded-full bg-brand-pink border-4 border-slate-50 dark:border-brand-darkBg group-hover:scale-125 group-hover:shadow-lg group-hover:shadow-brand-pink/50 transition-all duration-300"></div>
+                <div class="bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm p-6 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm group-hover:shadow-md transition-shadow">
+                    <h3 class="text-xl font-bold text-brand-red dark:text-white group-hover:text-brand-pink transition-colors">หัวหน้าฝ่ายสวัสดิการและดูแลทีมงาน</h3>
+                    <p class="inline-block mt-1 mb-4 px-3 py-1 bg-brand-light/50 dark:bg-brand-pink/20 text-brand-pink font-semibold text-sm rounded-full">ค่ายอาสามหาวิทยาลัย (2567)</p>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm md:text-base leading-relaxed">
+                        ดูแลเรื่องการจัดสรรอาหาร สวัสดิการ และประสานงานทีมงานค่ายกว่า 50 คน เพื่อให้กิจกรรมดำเนินไปอย่างราบรื่น
+                    </p>
+                </div>
             </div>
 
             <!-- Experience 2 -->
-            <div class="relative pl-8 md:pl-10">
-                <div class="absolute -left-3 md:-left-3.5 top-1 w-6 h-6 rounded-full bg-brand-pastel border-4 border-slate-50 dark:border-brand-darkBg"></div>
-                <h3 class="text-xl font-bold text-brand-navy dark:text-white">ผู้ดำเนินรายการและฝ่ายจัดกิจกรรม</h3>
-                <p class="text-brand-pastel dark:text-blue-300 font-medium text-sm mb-3">งานรับน้องสาขา (2566)</p>
-                <p class="text-slate-600 dark:text-slate-400 text-sm md:text-base">
-                    ออกแบบกิจกรรม Ice-breaking และ Team Building สร้างความสัมพันธ์ในหมู่นักศึกษาใหม่
-                </p>
+            <div class="relative pl-8 md:pl-12 group" data-aos="fade-up" data-aos-delay="200">
+                <div class="absolute -left-3.5 md:-left-[15px] top-1.5 w-7 h-7 rounded-full bg-brand-red border-4 border-slate-50 dark:border-brand-darkBg group-hover:scale-125 group-hover:shadow-lg group-hover:shadow-brand-red/50 transition-all duration-300"></div>
+                <div class="bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm p-6 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm group-hover:shadow-md transition-shadow">
+                    <h3 class="text-xl font-bold text-brand-red dark:text-white group-hover:text-brand-pink transition-colors">ผู้ดำเนินรายการและฝ่ายจัดกิจกรรม</h3>
+                    <p class="inline-block mt-1 mb-4 px-3 py-1 bg-brand-light/50 dark:bg-brand-pink/20 text-brand-pink font-semibold text-sm rounded-full">งานรับน้องสาขา (2566)</p>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm md:text-base leading-relaxed">
+                        ออกแบบกิจกรรม Ice-breaking และ Team Building สร้างความสัมพันธ์ในหมู่นักศึกษาใหม่ ส่งเสริมการทำงานเป็นทีม
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- 7. Certifications -->
-    <section class="py-16 bg-brand-navy text-white dark:bg-slate-900 transition-colors">
-        <div class="max-w-6xl mx-auto px-6 md:px-12 text-center">
-            <h2 class="text-2xl font-bold mb-8"><i class="fas fa-award text-brand-peach mr-2"></i> Certifications</h2>
+    <section class="py-20 bg-brand-red dark:bg-slate-900 transition-colors relative overflow-hidden">
+        <!-- Abstract background pattern -->
+        <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 32px 32px;"></div>
+        
+        <div class="max-w-6xl mx-auto px-6 md:px-12 text-center relative z-10">
+            <h2 class="text-3xl font-bold mb-10 text-white" data-aos="fade-down"><i class="fas fa-award text-brand-pink mr-3"></i> Certifications</h2>
             <div class="flex flex-col md:flex-row justify-center gap-6">
-                <div class="bg-white/10 p-4 rounded-lg flex items-center justify-center gap-3 backdrop-blur-sm border border-white/20">
-                    <i class="fas fa-certificate text-brand-pastel text-xl"></i>
-                    <span class="text-sm md:text-base font-medium">Foundations of Everyday Leadership - Coursera</span>
+                <div class="bg-white/10 p-6 rounded-2xl flex items-center justify-center gap-4 backdrop-blur-md border border-white/20 hover:bg-white/20 hover:-translate-y-2 transition-all duration-300 shadow-xl cursor-default group" data-aos="flip-up" data-aos-delay="100">
+                    <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center group-hover:scale-110 group-hover:bg-brand-pink transition-all">
+                        <i class="fas fa-certificate text-white text-xl"></i>
+                    </div>
+                    <span class="text-base md:text-lg font-medium text-white tracking-wide">Foundations of Everyday Leadership <br><span class="text-sm text-brand-light font-normal">Coursera</span></span>
                 </div>
-                <div class="bg-white/10 p-4 rounded-lg flex items-center justify-center gap-3 backdrop-blur-sm border border-white/20">
-                    <i class="fas fa-certificate text-brand-pastel text-xl"></i>
-                    <span class="text-sm md:text-base font-medium">HR Analytics & People Metrics - Chula MOOC</span>
+                <div class="bg-white/10 p-6 rounded-2xl flex items-center justify-center gap-4 backdrop-blur-md border border-white/20 hover:bg-white/20 hover:-translate-y-2 transition-all duration-300 shadow-xl cursor-default group" data-aos="flip-up" data-aos-delay="200">
+                    <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center group-hover:scale-110 group-hover:bg-brand-pink transition-all">
+                        <i class="fas fa-certificate text-white text-xl"></i>
+                    </div>
+                    <span class="text-base md:text-lg font-medium text-white tracking-wide">HR Analytics & People Metrics <br><span class="text-sm text-brand-light font-normal">Chula MOOC</span></span>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- 8. Contact & Footer -->
-    <section id="contact" class="py-20 px-6 md:px-12 max-w-6xl mx-auto">
-        <div class="bg-white dark:bg-brand-darkCard rounded-3xl shadow-xl overflow-hidden border border-slate-100 dark:border-slate-800 flex flex-col md:flex-row">
+    <section id="contact" class="py-24 px-6 md:px-12 max-w-6xl mx-auto">
+        <div class="bg-white/80 dark:bg-brand-darkCard/80 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden border border-slate-100 dark:border-slate-800 flex flex-col md:flex-row" data-aos="fade-up">
             
             <!-- Contact Info -->
-            <div class="w-full md:w-5/12 bg-brand-navy dark:bg-slate-800 p-10 text-white flex flex-col justify-center">
-                <h2 class="text-3xl font-bold mb-4">Let's Connect</h2>
-                <p class="text-slate-300 mb-8 text-sm leading-relaxed">
+            <div class="w-full md:w-5/12 bg-gradient-to-br from-brand-red to-rose-900 dark:from-slate-800 dark:to-slate-900 p-12 text-white flex flex-col justify-center relative overflow-hidden">
+                <!-- Decorative background elements -->
+                <div class="absolute -right-20 -bottom-20 w-64 h-64 border-4 border-white/10 rounded-full"></div>
+                <div class="absolute -right-10 -bottom-10 w-40 h-40 border-4 border-white/10 rounded-full"></div>
+                
+                <h2 class="text-4xl font-bold mb-4 relative z-10">Let's Connect</h2>
+                <p class="text-brand-light mb-10 text-base leading-relaxed relative z-10">
                     สนใจร่วมงานหรือต้องการพูดคุยแลกเปลี่ยนความคิดเห็นด้านงาน HR สามารถติดต่อได้ตามช่องทางด้านล่างนี้เลยค่ะ
                 </p>
-                <div class="space-y-6">
-                    <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center"><i class="fas fa-envelope"></i></div>
-                        <span>674466068@webmail.npru.ac.th</span>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center"><i class="fas fa-phone-alt"></i></div>
-                        <span>092-473-1287</span>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center"><i class="fab fa-linkedin-in"></i></div>
-                        <a href="https://linkedin.com/in/yourprofile" target="_blank" class="hover:text-brand-peach transition">LinkedIn Profile</a>
-                    </div>
+                <div class="space-y-8 relative z-10">
+                    <a href="mailto:674466068@webmail.npru.ac.th" class="flex items-center gap-5 group">
+                        <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-brand-pink group-hover:scale-110 transition-all shadow-md"><i class="fas fa-envelope text-lg"></i></div>
+                        <span class="group-hover:translate-x-2 transition-transform text-lg">674466068@webmail.npru.ac.th</span>
+                    </a>
+                    <a href="tel:0924731287" class="flex items-center gap-5 group">
+                        <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-brand-pink group-hover:scale-110 transition-all shadow-md"><i class="fas fa-phone-alt text-lg"></i></div>
+                        <span class="group-hover:translate-x-2 transition-transform text-lg">092-473-1287</span>
+                    </a>
+                    <a href="https://linkedin.com/in/yourprofile" target="_blank" class="flex items-center gap-5 group">
+                        <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-brand-pink group-hover:scale-110 transition-all shadow-md"><i class="fab fa-linkedin-in text-lg"></i></div>
+                        <span class="group-hover:translate-x-2 transition-transform text-lg">LinkedIn Profile</span>
+                    </a>
                 </div>
             </div>
 
             <!-- Contact Form UI -->
-            <div class="w-full md:w-7/12 p-10">
-                <h3 class="text-2xl font-bold text-brand-navy dark:text-white mb-6">Send a Message</h3>
-                <form class="space-y-4" onsubmit="event.preventDefault(); alert('นี่เป็นเพียงฟอร์มจำลอง (UI) หากต้องการใช้งานจริงต้องต่อ API ส่งอีเมลครับ');">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">ชื่อ-นามสกุล</label>
-                            <input type="text" class="w-full px-4 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-brand-pastel focus:outline-none dark:text-white" placeholder="Your Name" required>
+            <div class="w-full md:w-7/12 p-12">
+                <h3 class="text-3xl font-bold text-brand-red dark:text-white mb-8">Send a Message</h3>
+                <form class="space-y-6" onsubmit="event.preventDefault(); alert('ส่งข้อความสำเร็จ! (นี่เป็นเพียงฟอร์มจำลอง)');">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="relative group">
+                            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">ชื่อ-นามสกุล</label>
+                            <input type="text" class="w-full px-5 py-3 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-brand-pink focus:border-brand-pink focus:outline-none dark:text-white transition-all group-hover:border-brand-pink/50 shadow-sm" placeholder="Your Name" required>
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">อีเมล</label>
-                            <input type="email" class="w-full px-4 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-brand-pastel focus:outline-none dark:text-white" placeholder="your@email.com" required>
+                        <div class="relative group">
+                            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">อีเมล</label>
+                            <input type="email" class="w-full px-5 py-3 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-brand-pink focus:border-brand-pink focus:outline-none dark:text-white transition-all group-hover:border-brand-pink/50 shadow-sm" placeholder="your@email.com" required>
                         </div>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">หัวข้อ</label>
-                        <input type="text" class="w-full px-4 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-brand-pastel focus:outline-none dark:text-white" placeholder="Subject">
+                    <div class="relative group">
+                        <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">หัวข้อ</label>
+                        <input type="text" class="w-full px-5 py-3 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-brand-pink focus:border-brand-pink focus:outline-none dark:text-white transition-all group-hover:border-brand-pink/50 shadow-sm" placeholder="Subject">
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">ข้อความ</label>
-                        <textarea rows="4" class="w-full px-4 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-brand-pastel focus:outline-none dark:text-white resize-none" placeholder="Your message here..." required></textarea>
+                    <div class="relative group">
+                        <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">ข้อความ</label>
+                        <textarea rows="4" class="w-full px-5 py-3 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-brand-pink focus:border-brand-pink focus:outline-none dark:text-white resize-none transition-all group-hover:border-brand-pink/50 shadow-sm" placeholder="Your message here..." required></textarea>
                     </div>
-                    <button type="submit" class="w-full bg-brand-navy dark:bg-brand-pastel text-white dark:text-brand-navy font-bold py-3 rounded-lg hover:opacity-90 transition shadow-lg">
-                        ส่งข้อความ
+                    <button type="submit" class="w-full bg-brand-red dark:bg-brand-light text-white dark:text-brand-red font-bold py-4 rounded-xl hover:bg-rose-900 dark:hover:bg-white hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-red/20 transition-all duration-300 overflow-hidden relative group">
+                        <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-10"></span>
+                        <span class="relative">ส่งข้อความ <i class="fas fa-paper-plane ml-2 group-hover:animate-bounce"></i></span>
                     </button>
                 </form>
             </div>
@@ -348,18 +457,83 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-6 text-center text-slate-500 dark:text-slate-400 text-sm border-t border-slate-200 dark:border-slate-800">
+    <footer class="py-8 text-center text-slate-500 dark:text-slate-400 text-sm border-t border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-brand-darkBg/50 backdrop-blur-sm">
         <p>&copy; 2024 Anantaya Wannasing. All rights reserved. Designed for HR Journey.</p>
     </footer>
 
-    <!-- JavaScript for Dark Mode & Mobile Menu -->
+    <!-- Scripts -->
+    <!-- AOS Animation Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Typed JS for Typing Effect -->
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+
+    <!-- Vanilla Tilt for 3D Card Hover -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+
     <script>
+        // Initialize AOS animations
+        AOS.init({
+            duration: 800, 
+            easing: 'ease-out-cubic',
+            once: true, 
+            offset: 50 
+        });
+
+        // Initialize Typed.js
+        var typed = new Typed('#typed-text', {
+            strings: ['HR Generalist', 'Talent Acquisition', 'HR Developer (HRD)', 'People & Culture Enthusiast'],
+            typeSpeed: 60,
+            backSpeed: 30,
+            backDelay: 2000,
+            loop: true,
+            cursorChar: '|',
+            autoInsertCss: true,
+        });
+
+        // Scroll Progress Bar & Navbar styling
+        window.addEventListener('scroll', () => {
+            // Progress bar
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scroll-bar').style.width = scrolled + '%';
+
+            // Navbar shadow on scroll
+            const navbar = document.getElementById('navbar');
+            if (winScroll > 50) {
+                navbar.classList.add('shadow-lg');
+                navbar.classList.remove('py-2');
+            } else {
+                navbar.classList.remove('shadow-lg');
+                navbar.classList.add('py-2');
+            }
+            
+            // Active Nav Link Spy
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
         // Dark Mode Logic
         const html = document.documentElement;
         const iconDesktop = document.getElementById('theme-icon-desktop');
         const iconMobile = document.getElementById('theme-icon-mobile');
 
-        // Check LocalStorage or System Preference
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             html.classList.add('dark');
             updateIcons('dark');
@@ -390,10 +564,22 @@
             }
         }
 
-        // Mobile Menu Logic
+        // Mobile Menu Logic (with animation)
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+            const icon = document.getElementById('menu-icon');
+            
+            if (menu.classList.contains('max-h-0')) {
+                menu.classList.remove('max-h-0');
+                menu.classList.add('max-h-96'); // open
+                icon.classList.replace('fa-bars', 'fa-times');
+                icon.classList.add('rotate-90');
+            } else {
+                menu.classList.remove('max-h-96');
+                menu.classList.add('max-h-0'); // close
+                icon.classList.replace('fa-times', 'fa-bars');
+                icon.classList.remove('rotate-90');
+            }
         }
     </script>
 </body>
