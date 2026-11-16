@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anantaya Wannasing | HR Professional</title>
+    
+    <!-- Google Fonts: Prompt for Thai, Inter for English/Numbers for a cleaner look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Prompt:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS Animation CSS (Kept for subtle transitions) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        minimal: {
+                            50: '#f9fafb',
+                            100: '#f3f4f6',
+                            200: '#e5e7eb',
+                            300: '#d1d5db',
+                            400: '#9ca3af',
+                            500: '#6b7280',
+                            600: '#4b5563',
+                            700: '#374151',
+                            800: '#1f2937',
+                            900: '#111827',
+                            950: '#030712',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom minimal scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d1d5db; }
+        .dark ::-webkit-scrollbar-thumb { background: #374151; }
+        
+        /* Typography refinements */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Subtle section divider */
+        .section-divider {
+            width: 40px;
+            height: 1px;
+            margin: 1.5rem auto;
+            background-color: currentColor;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body class="bg-white text-minimal-900 dark:bg-minimal-950 dark:text-minimal-50 transition-colors duration-500 overflow-x-hidden selection:bg-minimal-200 dark:selection:bg-minimal-800">
+
+    <!-- 1. Header/Navbar -->
+    <header class="fixed w-full top-0 z-50 bg-white/90 dark:bg-minimal-950/90 backdrop-blur-md border-b border-minimal-100 dark:border-minimal-900 transition-colors duration-300" id="navbar">
+        <div class="max-w-6xl mx-auto px-6 md:px-12 h-20 flex items-center justify-between">
+            <a href="#" class="text-lg font-medium tracking-widest uppercase">
+                Anantaya<span class="text-minimal-400">.W</span>
+            </a>
+            
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex space-x-10 items-center text-sm font-light tracking-wide uppercase">
+                <a href="#about" class="hover:text-minimal-500 dark:hover:text-minimal-400 transition-colors">About</a>
+                <a href="#skills" class="hover:text-minimal-500 dark:hover:text-minimal-400 transition-colors">Skills</a>
+                <a href="#projects" class="hover:text-minimal-500 dark:hover:text-minimal-400 transition-colors">Projects</a>
+                <a href="#experience" class="hover:text-minimal-500 dark:hover:text-minimal-400 transition-colors">Experience</a>
+                <a href="#contact" class="hover:text-minimal-500 dark:hover:text-minimal-400 transition-colors">Contact</a>
+                
+                <div class="w-[1px] h-4 bg-minimal-200 dark:bg-minimal-800"></div>
+                
+                <!-- Dark Mode Toggle Desktop -->
+                <button onclick="toggleDarkMode()" class="text-minimal-500 hover:text-minimal-900 dark:hover:text-white transition-colors" aria-label="Toggle Dark Mode">
+                    <i id="theme-icon-desktop" class="fas fa-moon"></i>
+                </button>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex items-center gap-6">
+                <button onclick="toggleDarkMode()" class="text-minimal-500 hover:text-minimal-900 dark:hover:text-white transition-colors">
+                    <i id="theme-icon-mobile" class="fas fa-moon"></i>
+                </button>
+                <button onclick="toggleMobileMenu()" class="focus:outline-none text-lg">
+                    <i class="fas fa-bars" id="menu-icon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="absolute top-20 left-0 w-full bg-white dark:bg-minimal-950 border-b border-minimal-100 dark:border-minimal-900 transition-all duration-300 overflow-hidden max-h-0">
+            <nav class="flex flex-col px-6 py-4 font-light tracking-wide uppercase text-sm space-y-6 text-center">
+                <a href="#about" onclick="toggleMobileMenu()" class="hover:text-minimal-500 transition-colors">About</a>
+                <a href="#skills" onclick="toggleMobileMenu()" class="hover:text-minimal-500 transition-colors">Skills</a>
+                <a href="#projects" onclick="toggleMobileMenu()" class="hover:text-minimal-500 transition-colors">Projects</a>
+                <a href="#experience" onclick="toggleMobileMenu()" class="hover:text-minimal-500 transition-colors">Experience</a>
+                <a href="#contact" onclick="toggleMobileMenu()" class="hover:text-minimal-500 transition-colors">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 2. Hero Section -->
+    <section id="hero" class="pt-32 pb-20 px-6 md:px-12 max-w-5xl mx-auto flex flex-col-reverse md:flex-row items-center justify-center min-h-[95vh] gap-12 md:gap-20">
+        <div class="w-full md:w-1/2 space-y-8 text-center md:text-left" data-aos="fade-up" data-aos-duration="1000">
+            <p class="text-xs uppercase tracking-[0.2em] text-minimal-500 font-medium">
+                Human Resources Professional
+            </p>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-light leading-tight">
+                Anantaya <br />
+                <span class="font-medium">Wannasing</span>
+            </h1>
+            <div class="h-[1px] w-12 bg-minimal-200 dark:bg-minimal-800 mx-auto md:mx-0"></div>
+            <p class="text-minimal-600 dark:text-minimal-400 text-base md:text-lg font-light leading-relaxed">
+                "Bridging organizational goals with employee happiness & growth." <br><br>
+                <span class="text-sm">
+                    นักศึกษาชั้นปีที่ 3 สาขาการจัดการทรัพยากรมนุษย์ <br>มหาวิทยาลัยราชภัฏนครปฐม
+                </span>
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 pt-4">
+                <a href="https://drive.google.com/..." target="_blank" class="w-full sm:w-auto px-8 py-3 bg-minimal-900 text-white dark:bg-minimal-50 dark:text-minimal-900 text-sm tracking-wide hover:bg-minimal-700 dark:hover:bg-minimal-200 transition-colors duration-300 flex items-center justify-center gap-3">
+                    Download Resume
+                </a>
+                <a href="#contact" class="w-full sm:w-auto px-8 py-3 border border-minimal-200 dark:border-minimal-800 text-sm tracking-wide hover:border-minimal-900 dark:hover:border-minimal-50 transition-colors duration-300 flex items-center justify-center gap-3">
+                    Contact Me
+                </a>
+            </div>
+
+            <div class="flex items-center justify-center md:justify-start gap-8 pt-4">
+                <a href="https://linkedin.com/in/yourprofile" target="_blank" class="text-minimal-400 hover:text-minimal-900 dark:hover:text-minimal-50 transition-colors"><i class="fab fa-linkedin-in text-lg"></i></a>
+                <a href="mailto:674466068@webmail.npru.ac.th" class="text-minimal-400 hover:text-minimal-900 dark:hover:text-minimal-50 transition-colors"><i class="far fa-envelope text-lg"></i></a>
+            </div>
+        </div>
+        
+        <div class="w-full md:w-1/2 flex justify-center" data-aos="fade-in" data-aos-duration="1500">
+            <!-- Minimalist Image Container with Inserted Image -->
+            <div class="relative w-64 h-80 md:w-80 md:h-[400px] overflow-hidden group">
+                <img src="image_0c06a8.png" alt="Anantaya Wannasing" class="absolute inset-0 w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 group-hover:scale-105">
+                <!-- Decorative Frame -->
+                <div class="absolute inset-0 border border-minimal-200 dark:border-minimal-700 m-4 pointer-events-none z-10"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. About Me -->
+    <section id="about" class="py-24 bg-minimal-50 dark:bg-minimal-900/20">
+        <div class="max-w-3xl mx-auto px-6 md:px-12 text-center" data-aos="fade-up">
+            <h2 class="text-xs uppercase tracking-[0.2em] text-minimal-500 font-medium">01 // Profile</h2>
+            <h3 class="text-3xl font-light mt-4 mb-8">About Me</h3>
+            <div class="section-divider"></div>
+            <p class="text-lg text-minimal-600 dark:text-minimal-300 font-light leading-loose text-justify md:text-center mt-8">
+                นักศึกษาสาย HR ที่มุ่งมั่นในการเรียนรู้กระบวนการสรรหาและพัฒนาบุคลากร มีความสนใจในการนำข้อมูล (People Data) มาใช้ปรับปรุงประสบการณ์ของพนักงานในองค์กร เพื่อสร้างสภาพแวดล้อมการทำงานที่ดีและส่งเสริมให้องค์กรบรรลุเป้าหมายอย่างยั่งยืน
+            </p>
+        </div>
+    </section>
+
+    <!-- 4. HR Skills & Competencies -->
+    <section id="skills" class="py-24 px-6 md:px-12 max-w-5xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-xs uppercase tracking-[0.2em] text-minimal-500 font-medium">02 // Expertise</h2>
+            <h3 class="text-3xl font-light mt-4 mb-6">Skills & Competencies</h3>
+            <div class="section-divider"></div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <!-- Hard Skills -->
+            <div data-aos="fade-up" data-aos-delay="100">
+                <div class="border-t border-minimal-200 dark:border-minimal-800 pt-6">
+                    <h4 class="text-sm font-medium tracking-wide uppercase mb-6 flex items-center justify-between">
+                        Hard Skills
+                        <i class="fas fa-briefcase text-minimal-300 dark:text-minimal-700 text-lg"></i>
+                    </h4>
+                    <ul class="space-y-4 text-sm font-light text-minimal-600 dark:text-minimal-400">
+                        <li class="flex items-center gap-3"><div class="w-1 h-1 bg-minimal-400 rounded-full"></div> Recruitment & Selection</li>
+                        <li class="flex items-center gap-3"><div class="w-1 h-1 bg-minimal-400 rounded-full"></div> Onboarding Design</li>
+                        <li class="flex items-center gap-3"><div class="w-1 h-1 bg-minimal-400 rounded-full"></div> Employee Engagement</li>
+                        <li class="flex items-center gap-3"><div class="w-1 h-1 bg-minimal-400 rounded-full"></div> Basic Labor Law</li>
+                        <li class="flex items-center gap-3"><div class="w-1 h-1 bg-minimal-400 rounded-full"></div> Human Resource Development (HRD)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Data & Tools -->
+            <div data-aos="fade-up" data-aos-delay="200">
+                <div class="border-t border-minimal-200 dark:border-minimal-800 pt-6">
+                    <h4 class="text-sm font-medium tracking-wide uppercase mb-6 flex items-center justify-between">
+                        Data & Tools
+                        <i class="fas fa-laptop text-minimal-300 dark:text-minimal-700 text-lg"></i>
+                    </h4>
+                    <ul class="space-y-4 text-sm font-light text-minimal-600 dark:text-minimal-400">
+                        <li class="flex items-center gap-3"><div class="w-1 h-1 bg-minimal-400 rounded-full"></div> MS Excel (Pivot, VLOOKUP)</li>
+                        <li class="flex items-center gap-3"><div class="w-1 h-1 bg-minimal-400 rounded-full"></div> Power BI (Basic)</li>
+                        <li class="flex items-center gap-3"><div class="w-1 h-1 bg-minimal-400 rounded-full"></div> Google Forms</li>
+                        <li class="flex items-center gap-3"><div class="w-1 h-1 bg-minimal-400 rounded-full"></div> Canva</li>
+                        <li class="flex items-center gap-3"><div class="w-1 h-1 bg-minimal-400 rounded-full"></div> Notion</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Soft Skills -->
+            <div data-aos="fade-up" data-aos-delay="300">
+                <div class="border-t border-minimal-200 dark:border-minimal-800 pt-6">
+                    <h4 class="text-sm font-medium tracking-wide uppercase mb-6 flex items-center justify-between">
+                        Soft Skills
+                        <i class="far fa-comments text-minimal-300 dark:text-minimal-700 text-lg"></i>
+                    </h4>
+                    <ul class="space-y-4 text-sm font-light text-minimal-600 dark:text-minimal-400">
+                        <li class="flex items-center gap-3"><div class="w-1 h-1 bg-minimal-400 rounded-full"></div> Active Listening</li>
+                        <li class="flex items-center gap-3"><div class="w-1 h-1 bg-minimal-400 rounded-full"></div> Empathy</li>
+                        <li class="flex items-center gap-3"><div class="w-1 h-1 bg-minimal-400 rounded-full"></div> Communication</li>
+                        <li class="flex items-center gap-3"><div class="w-1 h-1 bg-minimal-400 rounded-full"></div> Team Facilitation</li>
+                        <li class="flex items-center gap-3"><div class="w-1 h-1 bg-minimal-400 rounded-full"></div> Conflict Resolution</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Projects & Case Studies -->
+    <section id="projects" class="py-24 bg-minimal-50 dark:bg-minimal-900/20">
+        <div class="max-w-5xl mx-auto px-6 md:px-12">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-xs uppercase tracking-[0.2em] text-minimal-500 font-medium">03 // Work</h2>
+                <h3 class="text-3xl font-light mt-4 mb-6">Projects & Case Studies</h3>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="space-y-16">
+                <!-- Project 1 -->
+                <div class="group" data-aos="fade-up">
+                    <div class="flex flex-col md:flex-row gap-8 items-start">
+                        <div class="w-full md:w-1/3">
+                            <p class="text-xs tracking-widest uppercase text-minimal-400 mb-2">Training Design</p>
+                            <h4 class="text-xl font-medium leading-snug group-hover:text-minimal-500 transition-colors">Onboarding & Training Program Design</h4>
+                        </div>
+                        <div class="w-full md:w-2/3 border-l border-minimal-200 dark:border-minimal-800 pl-6 md:pl-10">
+                            <p class="text-minimal-600 dark:text-minimal-400 font-light leading-relaxed mb-6">
+                                ออกแบบหลักสูตรการปฐมนิเทศพนักงานใหม่ 3 วัน พร้อมระบบติดตามผล 90 วัน ในรายวิชา HRD เน้นการสร้างประสบการณ์ที่ดีให้พนักงานใหม่และลดอัตราการลาออกในช่วงทดลองงาน
+                            </p>
+                            <div class="flex flex-wrap gap-4 text-xs tracking-wide text-minimal-500">
+                                <span><i class="fas fa-check font-light mr-1"></i> Instructional Design</span>
+                                <span><i class="fas fa-check font-light mr-1"></i> Canva</span>
+                                <span><i class="fas fa-check font-light mr-1"></i> MS Word</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full h-[1px] bg-minimal-200 dark:bg-minimal-800 opacity-50"></div>
+
+                <!-- Project 2 -->
+                <div class="group" data-aos="fade-up">
+                    <div class="flex flex-col md:flex-row gap-8 items-start">
+                        <div class="w-full md:w-1/3">
+                            <p class="text-xs tracking-widest uppercase text-minimal-400 mb-2">Data Analysis</p>
+                            <h4 class="text-xl font-medium leading-snug group-hover:text-minimal-500 transition-colors">Employee Engagement & Satisfaction Survey</h4>
+                        </div>
+                        <div class="w-full md:w-2/3 border-l border-minimal-200 dark:border-minimal-800 pl-6 md:pl-10">
+                            <p class="text-minimal-600 dark:text-minimal-400 font-light leading-relaxed mb-6">
+                                ออกแบบแบบสำรวจและวิเคราะห์ข้อมูลความพึงพอใจของนักศึกษา 150 คน เพื่อเสนอแนวทางการจัดกิจกรรมชมรมอย่างมีประสิทธิภาพ โดยอิงจากข้อมูล People Data จริง
+                            </p>
+                            <div class="flex flex-wrap gap-4 text-xs tracking-wide text-minimal-500">
+                                <span><i class="fas fa-check font-light mr-1"></i> Google Forms</span>
+                                <span><i class="fas fa-check font-light mr-1"></i> MS Excel</span>
+                                <span><i class="fas fa-check font-light mr-1"></i> Data Visualization</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Activities & Experience -->
+    <section id="experience" class="py-24 px-6 md:px-12 max-w-4xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-xs uppercase tracking-[0.2em] text-minimal-500 font-medium">04 // Experience</h2>
+            <h3 class="text-3xl font-light mt-4 mb-6">Activities & Leadership</h3>
+            <div class="section-divider"></div>
+        </div>
+        
+        <div class="space-y-12 relative before:absolute before:inset-0 before:ml-2 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-[1px] before:bg-minimal-200 dark:before:bg-minimal-800">
+            
+            <!-- Experience 1 -->
+            <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active" data-aos="fade-up">
+                <!-- Icon -->
+                <div class="flex items-center justify-center w-5 h-5 rounded-full border border-minimal-300 dark:border-minimal-600 bg-white dark:bg-minimal-950 text-minimal-500 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-sm z-10 transition-colors group-hover:border-minimal-900 dark:group-hover:border-minimal-50"></div>
+                <!-- Content -->
+                <div class="w-[calc(100%-2.5rem)] md:w-[calc(50%-1.5rem)] p-4 border border-transparent hover:border-minimal-200 dark:hover:border-minimal-800 transition-colors">
+                    <div class="mb-1 text-xs tracking-widest uppercase text-minimal-400">ค่ายอาสามหาวิทยาลัย (2567)</div>
+                    <h4 class="text-lg font-medium mb-2">หัวหน้าฝ่ายสวัสดิการและดูแลทีมงาน</h4>
+                    <p class="text-sm font-light text-minimal-600 dark:text-minimal-400 leading-relaxed">ดูแลเรื่องการจัดสรรอาหาร สวัสดิการ และประสานงานทีมงานค่ายกว่า 50 คน เพื่อให้กิจกรรมดำเนินไปอย่างราบรื่นและทุกคนมีสภาพแวดล้อมที่เหมาะสม</p>
+                </div>
+            </div>
+
+            <!-- Experience 2 -->
+            <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active" data-aos="fade-up">
+                <!-- Icon -->
+                <div class="flex items-center justify-center w-5 h-5 rounded-full border border-minimal-300 dark:border-minimal-600 bg-white dark:bg-minimal-950 text-minimal-500 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-sm z-10 transition-colors group-hover:border-minimal-900 dark:group-hover:border-minimal-50"></div>
+                <!-- Content -->
+                <div class="w-[calc(100%-2.5rem)] md:w-[calc(50%-1.5rem)] p-4 border border-transparent hover:border-minimal-200 dark:hover:border-minimal-800 transition-colors">
+                    <div class="mb-1 text-xs tracking-widest uppercase text-minimal-400">งานรับน้องสาขา (2566)</div>
+                    <h4 class="text-lg font-medium mb-2">ผู้ดำเนินรายการและฝ่ายจัดกิจกรรม</h4>
+                    <p class="text-sm font-light text-minimal-600 dark:text-minimal-400 leading-relaxed">ออกแบบกิจกรรม Ice-breaking และ Team Building สร้างความสัมพันธ์ในหมู่นักศึกษาใหม่ ส่งเสริมการสื่อสารและการทำงานเป็นทีม</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 7. Certifications -->
+    <section class="py-24 bg-minimal-50 dark:bg-minimal-900/20 border-y border-minimal-100 dark:border-minimal-800/50">
+        <div class="max-w-5xl mx-auto px-6 md:px-12 text-center">
+            <h2 class="text-xs uppercase tracking-[0.2em] text-minimal-500 font-medium mb-12" data-aos="fade-up">Certifications</h2>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 text-minimal-600 dark:text-minimal-400 font-light">
+                <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-certificate text-2xl mb-4 opacity-50"></i>
+                    <p class="text-base text-minimal-900 dark:text-minimal-50 font-medium mb-1">Foundations of Everyday Leadership</p>
+                    <p class="text-sm">Coursera</p>
+                </div>
+                <div class="hidden md:block w-px h-16 bg-minimal-200 dark:bg-minimal-800"></div>
+                <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-certificate text-2xl mb-4 opacity-50"></i>
+                    <p class="text-base text-minimal-900 dark:text-minimal-50 font-medium mb-1">HR Analytics & People Metrics</p>
+                    <p class="text-sm">Chula MOOC</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Contact & Footer -->
+    <section id="contact" class="pt-24 pb-12 px-6 md:px-12 max-w-4xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-xs uppercase tracking-[0.2em] text-minimal-500 font-medium">05 // Contact</h2>
+            <h3 class="text-3xl font-light mt-4 mb-6">Get In Touch</h3>
+            <div class="section-divider"></div>
+            <p class="text-minimal-500 font-light mt-6 max-w-xl mx-auto">
+                สนใจร่วมงานหรือต้องการพูดคุยแลกเปลี่ยนความคิดเห็นด้านงาน HR ยินดีที่ได้รู้จักและพร้อมสำหรับการสื่อสารเสมอครับ/ค่ะ
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-12 md:gap-8 items-start" data-aos="fade-up">
+            <!-- Contact Info -->
+            <div class="md:col-span-2 space-y-8">
+                <div>
+                    <h4 class="text-xs font-medium tracking-widest uppercase text-minimal-400 mb-2">Email</h4>
+                    <a href="mailto:674466068@webmail.npru.ac.th" class="text-lg font-light hover:text-minimal-500 transition-colors">674466068@webmail.npru.ac.th</a>
+                </div>
+                <div>
+                    <h4 class="text-xs font-medium tracking-widest uppercase text-minimal-400 mb-2">Phone</h4>
+                    <a href="tel:0924731287" class="text-lg font-light hover:text-minimal-500 transition-colors">092-473-1287</a>
+                </div>
+                <div>
+                    <h4 class="text-xs font-medium tracking-widest uppercase text-minimal-400 mb-2">Social</h4>
+                    <a href="https://linkedin.com/in/yourprofile" target="_blank" class="text-lg font-light hover:text-minimal-500 transition-colors underline underline-offset-4 decoration-minimal-200 dark:decoration-minimal-800">LinkedIn Profile</a>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="md:col-span-3">
+                <form class="space-y-6" onsubmit="event.preventDefault(); alert('ส่งข้อความสำเร็จ! (นี่เป็นเพียงฟอร์มจำลอง)');">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <input type="text" class="w-full bg-transparent border-b border-minimal-300 dark:border-minimal-700 py-3 text-sm font-light focus:outline-none focus:border-minimal-900 dark:focus:border-minimal-50 transition-colors placeholder:text-minimal-400" placeholder="Name" required>
+                        </div>
+                        <div>
+                            <input type="email" class="w-full bg-transparent border-b border-minimal-300 dark:border-minimal-700 py-3 text-sm font-light focus:outline-none focus:border-minimal-900 dark:focus:border-minimal-50 transition-colors placeholder:text-minimal-400" placeholder="Email Address" required>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="text" class="w-full bg-transparent border-b border-minimal-300 dark:border-minimal-700 py-3 text-sm font-light focus:outline-none focus:border-minimal-900 dark:focus:border-minimal-50 transition-colors placeholder:text-minimal-400" placeholder="Subject">
+                    </div>
+                    <div>
+                        <textarea rows="3" class="w-full bg-transparent border-b border-minimal-300 dark:border-minimal-700 py-3 text-sm font-light focus:outline-none focus:border-minimal-900 dark:focus:border-minimal-50 transition-colors placeholder:text-minimal-400 resize-none" placeholder="Message" required></textarea>
+                    </div>
+                    <div class="pt-4 text-right">
+                        <button type="submit" class="px-8 py-3 bg-transparent border border-minimal-900 text-minimal-900 dark:border-minimal-50 dark:text-minimal-50 text-sm tracking-widest uppercase hover:bg-minimal-900 hover:text-white dark:hover:bg-minimal-50 dark:hover:text-minimal-900 transition-colors duration-300">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 mt-12 text-center border-t border-minimal-100 dark:border-minimal-800/50">
+        <p class="text-xs tracking-widest uppercase text-minimal-400 font-light">&copy; 2024 Anantaya Wannasing. Minimalist HR Portfolio.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS animations - Configured for subtle fade
+        AOS.init({
+            duration: 900, 
+            easing: 'ease-out',
+            once: true, 
+            offset: 50 
+        });
+
+        // Dark Mode Logic
+        const html = document.documentElement;
+        const iconDesktop = document.getElementById('theme-icon-desktop');
+        const iconMobile = document.getElementById('theme-icon-mobile');
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+            updateIcons('dark');
+        } else {
+            html.classList.remove('dark');
+            updateIcons('light');
+        }
+
+        function toggleDarkMode() {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+                updateIcons('light');
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+                updateIcons('dark');
+            }
+        }
+
+        function updateIcons(theme) {
+            if (theme === 'dark') {
+                iconDesktop.classList.replace('fa-moon', 'fa-sun');
+                iconMobile.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                iconDesktop.classList.replace('fa-sun', 'fa-moon');
+                iconMobile.classList.replace('fa-sun', 'fa-moon');
+            }
+        }
+
+        // Mobile Menu Logic
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            
+            if (menu.classList.contains('max-h-0')) {
+                menu.classList.remove('max-h-0');
+                menu.classList.add('max-h-80'); // open
+                icon.classList.replace('fa-bars', 'fa-times');
+            } else {
+                menu.classList.remove('max-h-80');
+                menu.classList.add('max-h-0'); // close
+                icon.classList.replace('fa-times', 'fa-bars');
+            }
+        }
+    </script>
+</body>
+</html>
